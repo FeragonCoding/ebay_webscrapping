@@ -1,12 +1,14 @@
+from attr import attrs
 from bs4 import BeautifulSoup
 from selenium import webdriver
 from selenium.common.exceptions import WebDriverException
+from selenium.webdriver.common.by import By
 import pandas as pd
 from datetime import date
 import time
 
-ubicacion = "C:/INSERTE_RUTA/chromedriver" #Ruta del driver
-driver = webdriver.Chrome(ubicacion)
+path = "./chromedriver" #Ruta del driver
+driver = webdriver.Chrome(path)
 
 home_link = "https://www.ebay.com/"
 search_kw = "iphone x".replace(" ","+")
@@ -65,7 +67,7 @@ for i in range(0, pg_amount):
       phone_location.append(location.text[3:])
     else: phone_location.append('')
 
-  next_btn = driver.find_element_by_css_selector('.pagination__next') 
+  next_btn = driver.find_element(By.CLASS_NAME, 'pagination__next')
   next_btn.click()
   time.sleep(2)
 
@@ -81,4 +83,4 @@ phone_list = pd.DataFrame({
 
 phone_list = phone_list.sort_values(by=['PRICE','SCORE','REVIEWS_AMT'], ascending=[True,False,False])
 
-phone_list.to_csv(r'C:/INSERTE_RUTA/lista_telefonos_prueba.csv', index=None, header=True, encoding='utf-8-sig')
+phone_list.to_csv(r'./lista_telefonos_prueba.csv', index=None, header=True, encoding='utf-8-sig')
