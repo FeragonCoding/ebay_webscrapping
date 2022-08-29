@@ -23,7 +23,7 @@ phone_reviews_amt = []
 phone_price = []
 phone_location = []
 
-pg_amount = 5
+pg_amount = 2
 
 page = BeautifulSoup(driver.page_source,'html.parser')
 
@@ -68,6 +68,7 @@ for i in range(0, pg_amount):
     else: phone_location.append('')
 
   next_btn = driver.find_element(By.CLASS_NAME, 'pagination__next')
+  print(next_btn)
   next_btn.click()
   time.sleep(2)
 
